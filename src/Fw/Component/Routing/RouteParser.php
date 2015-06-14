@@ -2,6 +2,6 @@
 
 namespace Fw\Routing;
 
-interface RouterParser {
+interface RouteParser {
 
 }

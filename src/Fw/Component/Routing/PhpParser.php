@@ -1,6 +1,7 @@
 <?php
 
-namespace \Fw\Routing;
-class PhpParser implements RouterParser {
+namespace Fw\Routing;
+
+class PhpParser implements RouteParser {
 
 }
