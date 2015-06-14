@@ -8,4 +8,10 @@ final class Application
     {
         echo 'Aloha oha!';
     }
+
+    public function setRouting(RouterParser $routing_component) {
+
+
+    }
 }
+
