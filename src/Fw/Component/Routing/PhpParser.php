@@ -9,7 +9,7 @@ class PhpParser implements RouteParser {
 
     public function returnRouteName(){
 
-        $routes = file_get_contents('../../src/config/routes.php');
+        $this->routes = file_get_contents('../../src/config/routes.php');
 
 
     }
