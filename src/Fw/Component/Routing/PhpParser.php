@@ -1,16 +1,20 @@
 <?php
 
-namespace Fw\Routing;
+namespace Fw\Component\Routing;
 
 
 class PhpParser implements RouteParser {
 
-    private $routes;
+    public function parseRoute($route, array $routes){
 
-    public function returnRouteName(){
+    foreach($routes as $routename => $value) {
 
-        $this->routes = file_get_contents('../../src/config/routes.php');
+        if (reset($value)==$route) {
+            return $routename;
+        }
 
+
+    }
 
     }
 

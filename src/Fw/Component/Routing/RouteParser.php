@@ -1,8 +1,10 @@
 <?php
 
-namespace Fw\Routing;
+namespace Fw\Component\Routing;
 
 interface RouteParser {
 
-    public function returnRouteName();
+    public function parseRoute($route, array $routes);
+
+
 }
