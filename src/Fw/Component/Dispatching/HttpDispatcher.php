@@ -4,7 +4,7 @@ namespace Fw\Component\Dispatching;
 
 class HttpDispatcher {
 
-    public function dispatchController ($route_name, array $controllers) {
+    public function dispatchController($route_name, array $controllers) {
 
         foreach($controllers as $route => $controller) {
 

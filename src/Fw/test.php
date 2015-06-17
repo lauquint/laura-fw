@@ -6,6 +6,7 @@ require '../../vendor/autoload.php';
 use Fw\Application;
 use Fw\Component\Routing\PhpParser;
 use Fw\Component\Dispatching\HttpDispatcher;
+use Fw\Component\Dispatching\HttpRequest;
 
 $application= new Application;
 $routing = new PhpParser();
@@ -42,6 +43,8 @@ $controller = $get_controller->dispatchController($route_name, $controllers);
 
 $controller_i = new $controller;
 
-$controller_i();
+$request = new HttpRequest($_GET, $_POST, $_SERVER);
+
+$controller_i($request);
 
 $application->run();
