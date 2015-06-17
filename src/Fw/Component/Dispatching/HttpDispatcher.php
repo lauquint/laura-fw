@@ -9,7 +9,7 @@ class HttpDispatcher {
         foreach($controllers as $route => $controller) {
 
             if ($route_name==$route) {
-                return $controller;
+                return $controller['controller'];
             }
 
 

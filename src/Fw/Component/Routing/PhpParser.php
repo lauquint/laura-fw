@@ -9,7 +9,7 @@ class PhpParser implements RouteParser {
 
     foreach($routes as $routename => $value) {
 
-        if (reset($value)==$route) {
+        if ($value['route']==$route) {
             return $routename;
         }
 

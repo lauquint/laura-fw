@@ -1,10 +1,11 @@
 <?php
+error_reporting(0);
 
 require '../../vendor/autoload.php';
 
 use Fw\Application;
 use Fw\Component\Routing\PhpParser;
-use \Fw\Component\Dispatching\HttpDispatcher;
+use Fw\Component\Dispatching\HttpDispatcher;
 
 $application= new Application;
 $routing = new PhpParser();
@@ -12,8 +13,13 @@ $routing = new PhpParser();
 $route = $_SERVER['PATH_INFO'];
 
 $routes = array(
-    'home'=>array('/', 'get'),
-    'welcome'=>array('/welcome', 'get'),
+    'Home'=> array(
+        'route'=>'/',
+        'method'=>'get'
+    ),
+    'Welcome' => array(
+        'route'=>'/welcome',
+        'method'=>'get'),
 );
 
 if (!$route) {
@@ -23,13 +29,19 @@ if (!$route) {
 $route_name = $routing->parseRoute($route, $routes);
 
 $controllers = array(
-    'home'=>'App\Controller\Home',
-    'hello'=>'App\Controller\Welcome',
+    'Home' => array(
+        'controller'=>'App\Controller\Home'
+    ),
+    'Welcome'=>array(
+        'controller'=>'App\Controller\Welcome'
+    ),
 );
 
 $get_controller = new HttpDispatcher;
 $controller = $get_controller->dispatchController($route_name, $controllers);
 
-new $controller;
+$controller_i = new $controller;
+
+$controller_i();
 
 $application->run();
