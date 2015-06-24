@@ -2,10 +2,14 @@
 
 namespace Fw\Component\Dispatching;
 
-class HttpRequest {
+class HttpRequest  {
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request, $get, $post, $session) {
 
+        $request->container = array(
+            "get"   => $get,
+            "post"   => $post,
+            "session" => $session,
+        );
     }
-
 }

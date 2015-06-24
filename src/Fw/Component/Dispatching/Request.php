@@ -6,16 +6,8 @@ use ArrayAccess;
 
 class Request implements ArrayAccess {
 
-    private $container = array();
+    public $container = array();
 
-
-    public function __construct($get, $post, $session) {
-        $this->container = array(
-            "get"   => $get,
-            "post"   => $post,
-            "session" => $session,
-        );
-    }
 
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
@@ -38,4 +30,3 @@ class Request implements ArrayAccess {
     }
 
 }
-
