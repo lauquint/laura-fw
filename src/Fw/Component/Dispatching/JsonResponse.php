@@ -5,15 +5,7 @@ use Fw\Component\Dispatching\Response;
 
 class JsonResponse implements Response {
 
-    public function render($data=array(), $headers=array()) {
-
-       // $this->setheaders();
-
-    return json_encode($data);
-
+    public function getResponse($response=array()) {
+        return $response;
     }
-
-   /* private function setheaders() {
-        return 'header("Content-Type: application/json; charset=UTF-8")';
-    }*/
 }
