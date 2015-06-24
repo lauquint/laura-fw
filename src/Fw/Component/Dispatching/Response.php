@@ -4,6 +4,6 @@ namespace Fw\Component\Dispatching;
 
 interface Response {
 
-    public function render($response);
+    public function render($data='', $headers=null);
 
 }
