@@ -1,19 +1,19 @@
 <?php
 
-namespace Fw\Component\View;
-use Fw\Component\View\View;
+namespace Fw\Component\Views;
+
+use Fw\Component\Views\View;
 
 class JsonView implements View {
 
-    public function render($data=array(), $headers=array()) {
+    public function render($data=array()) {
 
-        // $this->setheaders();
-
-        return json_encode($data);
+        return $this->show(json_encode($data));
 
     }
 
-    /* private function setheaders() {
-         return 'header("Content-Type: application/json; charset=UTF-8")';
-     }*/
+    private function show($data) {
+        echo $data;
+    }
+
 }

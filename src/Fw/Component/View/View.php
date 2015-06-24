@@ -1,8 +1,8 @@
 <?php
 
-namespace Fw\Component\View;
+namespace Fw\Component\Views;
 
 interface View {
 
-    public function render($data='', $headers=null);
+    public function render($data='');
 }

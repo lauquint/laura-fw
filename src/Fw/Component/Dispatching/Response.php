@@ -4,6 +4,8 @@ namespace Fw\Component\Dispatching;
 
 interface Response {
 
-    public function getResponse($response);
+    public function __construct($data);
+
+    public function getResponse();
 
 }
