@@ -8,12 +8,7 @@ class JsonView implements View {
 
     public function render($data=array()) {
 
-        return $this->show(json_encode($data));
+        echo json_encode($data);
 
     }
-
-    private function show($data) {
-        echo $data;
-    }
-
 }
