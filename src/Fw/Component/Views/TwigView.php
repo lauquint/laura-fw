@@ -8,15 +8,15 @@ use \Twig_Environment;
 
 class TwigView implements WebView, View {
 
-
+    public $twig_view;
     public function __construct(Twig_Environment $twig) {
-       $twig = $this->twig;
+       $this->twig_view = $twig;
 
     }
 
     public function render($data=array()) {
 
-        echo $this->twig->render($data['template'], $data['parameters']);
+        echo $this->twig_view->render($data['template'], $data['parameters']);
 
     }
 
