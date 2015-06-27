@@ -9,18 +9,23 @@ use Fw\Component\Dispatching\HttpRequest;
 use Fw\Component\Dispatching\Request;
 use Fw\Component\Dispatching\JsonResponse;
 use Fw\Component\Dispatching\WebResponse;
+use Fw\Component\Views\View;
 use Fw\Component\Views\JsonView;
 use Fw\Component\Views\WebView;
+use Fw\Component\Views\TwigView;
+use \Twig_Environment;
+use \Twig_Loader_Filesystem;
 
-final class Application
-{
-    public function run()
-    {
+final class Application {
+
+    public $view;
+
+
+    public function run() {
 
         $routing = new PhpParser();
 
         $this->setRouting($routing);
-
 
     }
 
@@ -72,6 +77,13 @@ final class Application
 
         $response = $controller_i($httprequest);
 
+        $this->setView($response);
+
+
+    }
+
+    public function setView($response) {
+
         if ($response instanceof JsonResponse) {
 
             $json = new JsonView();
@@ -80,6 +92,20 @@ final class Application
 
 
         } else if ($response instanceof WebResponse) {
+
+            $web_view = new TwigView($this->template_engine);
+
+            $web_view->render($response->getResponse());
+
+        }
+
+    }
+
+    public function setTemplateEngine($templateEngine) {
+
+        if ($templateEngine instanceof Twig_Environment) {
+
+            $this->template_engine = $templateEngine;
 
         }
 

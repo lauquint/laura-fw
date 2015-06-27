@@ -43,7 +43,7 @@ $controller = $get_controller->dispatchController($route_name, $controllers);
 
 $controller_i = new $controller;
 
-$request = new HttpRequest($_GET, $_POST, $_SERVER);
+ //$request = new HttpRequest($_GET, $_POST, $_SERVER);
 
 $controller_i($request);
 
