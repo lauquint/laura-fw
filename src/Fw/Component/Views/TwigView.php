@@ -20,5 +20,4 @@ class TwigView implements WebView, View {
 
     }
 
-
 }
