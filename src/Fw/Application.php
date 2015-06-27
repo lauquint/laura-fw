@@ -9,16 +9,13 @@ use Fw\Component\Dispatching\HttpRequest;
 use Fw\Component\Dispatching\Request;
 use Fw\Component\Dispatching\JsonResponse;
 use Fw\Component\Dispatching\WebResponse;
-use Fw\Component\Views\View;
 use Fw\Component\Views\JsonView;
-use Fw\Component\Views\WebView;
 use Fw\Component\Views\TwigView;
 use \Twig_Environment;
-use \Twig_Loader_Filesystem;
 
 final class Application {
 
-    public $view;
+    public $template_engine;
 
 
     public function run() {
