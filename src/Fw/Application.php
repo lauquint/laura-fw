@@ -23,11 +23,11 @@ final class Application {
     public $database;
 
 
-    public function run(Request $routing) {
+    public function run() {
 
         $routing = new PhpRouting();
 
-        $request = $this->setRouting($routing);
+        $this->setRouting($routing);
 
     }
 
@@ -51,11 +51,14 @@ final class Application {
 
         $route = $this->getRoute();
 
+
+
         if (!$route) {
             $route='/';
         }
 
         $route_name = $routing->parseRoute($route, $routes);
+
 
         $get_controller = new HttpDispatcher;
 
