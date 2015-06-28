@@ -8,12 +8,14 @@ use \PDO;
 
 class MysqlPDO implements Database, Mysql {
 
-    private $mysqlpdo;
+    public $database;
+
 
     public function __construct(PDO $pdo) {
 
-        $this->mysqlpdo = $pdo;
+        $this->database = $pdo;
 
     }
+
 
 }

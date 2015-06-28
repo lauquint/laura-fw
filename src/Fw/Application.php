@@ -13,10 +13,15 @@ use Fw\Component\Views\JsonView;
 use Fw\Component\Views\TwigView;
 use Fw\Component\Views\WebView;
 use \Twig_Environment;
+use Fw\Component\Databases\MysqlPDO\MysqlPDO;
+use Fw\Component\Databases\MysqlPDO\MysqlPDOConnection;
+use Fw\Component\Databases\Database;
+use \PDO;
 
 final class Application {
 
     public $template_engine;
+    public $database;
 
 
     public function run() {
@@ -71,9 +76,10 @@ final class Application {
         $controller_i = new $controller;
 
         $request = new Request();
+
         $httprequest = new HttpRequest($request, $_GET, $_POST, $_SERVER);
 
-        $response = $controller_i($httprequest);
+        $response = $controller_i($httprequest, $this->database);
 
         $this->setView($response);
 
@@ -99,7 +105,7 @@ final class Application {
 
     }
 
-    public function setTemplateEngine(WebView $templateEngine) {
+    public function setTemplateEngine($templateEngine) {
 
         if ($templateEngine instanceof Twig_Environment) {
 
@@ -109,9 +115,11 @@ final class Application {
 
     }
 
-    public function setDatabase() {
+    public function setDatabase(Database $database) {
 
-        $pdo = new PDO($dsn, $username, $password, $options);
-
+        $this->database = $database;
     }
+
+
+
 }

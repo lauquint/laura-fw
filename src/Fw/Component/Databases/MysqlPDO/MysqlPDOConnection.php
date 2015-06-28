@@ -2,20 +2,20 @@
 
 namespace Fw\Component\Databases\MysqlPDO;
 
+use Fw\Component\Databases\Database;
 use \PDOException;
 use \PDO;
 
-class MysqlPDOConnection {
+class MysqlPDOConnection extends PDO implements Database {
 
-    private $dsn;
-    private $user;
-    private $password;
-    private $options;
-    private $pdo;
+    protected  $dsn;
+    protected $user;
+    protected $password;
+    protected $options;
+    protected $pdo;
 
 
     public function __construct($database) {
-
 
         $this->dsn = $database['driver'].':host='.$database['host'].';dbname='.$database['database'];
         $this->user = $database['username'];
@@ -25,6 +25,12 @@ class MysqlPDOConnection {
 
             $this->pdo = new PDO($this->dsn, $this->user, $this->password);
 
+            $this->pdo->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+
+            $this->pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+            return $this->pdo;
+
 
         } catch (PDOException $e) {
 
@@ -32,7 +38,9 @@ class MysqlPDOConnection {
 
         }
 
-        return $this->pdo;
+
+
+
 
     }
 
