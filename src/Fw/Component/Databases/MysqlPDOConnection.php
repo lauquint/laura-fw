@@ -21,12 +21,16 @@ class MysqlPDOConnection {
         $this->password = $database['password'];
 
         try {
+
             $pdo = new PDO($this->dsn, $this->user, $this->password);
+
         } catch (PDOException $e) {
+
             echo 'Connection Error ' . $e->getMessage();
+
         }
 
-
+        return $pdo;
 
     }
 
