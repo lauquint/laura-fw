@@ -18,7 +18,7 @@ class MysqlPDOConnection {
 
 
         $this->dsn = $database['driver'].':host='.$database['host'].';dbname='.$database['database'];
-        $this->user = $database['user'];
+        $this->user = $database['username'];
         $this->password = $database['password'];
 
         try {
