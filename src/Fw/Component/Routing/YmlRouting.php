@@ -1,5 +1,7 @@
 <?php
 
+namespace Fw\Component\Routing;
+
 class YmlRouting implements RouteParser {
 
     public function parseRoute($route, array $routes){
