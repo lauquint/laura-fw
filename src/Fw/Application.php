@@ -52,7 +52,7 @@ final class Application {
 
         //include __DIR__ . '/../../../../../src/config/routes.php';
         $yaml = new Parser();
-        $routes = $yaml->parse(file_get_contents('/../../../../../src/config/routes.yml'));
+        $routes = $yaml->parse(file_get_contents(__DIR__ .'/../../../../../src/config/routes.yml'));
 
         $route = $this->getRoute();
 
@@ -66,7 +66,7 @@ final class Application {
         $get_controller = new HttpDispatcher;
         //include __DIR__ . '/../../../../../src/config/controllers.php';
         $yaml = new Parser();
-        $controllers = $yaml->parse(file_get_contents('/../../../../../src/config/controllers.yml'));
+        $controllers = $yaml->parse(file_get_contents(__DIR__ .'/../../../../../src/config/controllers.yml'));
 
         $controller = $get_controller->dispatchController($route_name, $controllers);
 
