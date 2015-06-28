@@ -2,7 +2,8 @@
 
 namespace Fw;
 
-use Fw\Component\Routing\PhpRouting;
+//use Fw\Component\Routing\PhpRouting;
+use Fw\Component\Routing\YmlRouting;
 use Fw\Component\Routing\RouteParser;
 use Fw\Component\Dispatching\HttpDispatcher;
 use Fw\Component\Dispatching\HttpRequest;
@@ -13,7 +14,7 @@ use Fw\Component\Views\JsonView;
 use Fw\Component\Views\TwigView;
 use \Twig_Environment;
 use Fw\Component\Databases\Database;
-
+use Symfony\Component\Yaml\Parser;
 
 
 final class Application {
@@ -24,7 +25,7 @@ final class Application {
 
     public function run() {
 
-        $routing = new PhpRouting();
+        $routing = new YmlRouting();
 
         $this->setRouting($routing);
 
@@ -49,7 +50,9 @@ final class Application {
     public function setRouting(RouteParser $routing) {
 
 
-        include __DIR__ . '/../../../../../src/config/routes.php';
+        //include __DIR__ . '/../../../../../src/config/routes.php';
+        $yaml = new Parser();
+        $routes = $yaml->parse(file_get_contents('/../../../../../src/config/routes.yml'));
 
         $route = $this->getRoute();
 
@@ -61,7 +64,9 @@ final class Application {
 
 
         $get_controller = new HttpDispatcher;
-        include __DIR__ . '/../../../../../src/config/controllers.php';
+        //include __DIR__ . '/../../../../../src/config/controllers.php';
+        $yaml = new Parser();
+        $controllers = $yaml->parse(file_get_contents('/../../../../../src/config/controllers.yml'));
 
         $controller = $get_controller->dispatchController($route_name, $controllers);
 
