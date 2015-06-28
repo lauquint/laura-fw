@@ -2,7 +2,7 @@
 
 namespace Fw;
 
-use Fw\Component\Routing\PhpParser;
+use Fw\Component\Routing\PhpRouting;
 use Fw\Component\Routing\RouteParser;
 use Fw\Component\Dispatching\HttpDispatcher;
 use Fw\Component\Dispatching\HttpRequest;
@@ -11,12 +11,11 @@ use Fw\Component\Dispatching\JsonResponse;
 use Fw\Component\Dispatching\WebResponse;
 use Fw\Component\Views\JsonView;
 use Fw\Component\Views\TwigView;
-use Fw\Component\Views\WebView;
 use \Twig_Environment;
-use Fw\Component\Databases\MysqlPDO\MysqlPDO;
-use Fw\Component\Databases\MysqlPDO\MysqlPDOConnection;
 use Fw\Component\Databases\Database;
-use \PDO;
+
+include __DIR__ . '/../src/config/controllers.php';
+include __DIR__ . '/../src/config/routes.php';
 
 final class Application {
 
@@ -24,50 +23,39 @@ final class Application {
     public $database;
 
 
-    public function run() {
+    public function run(Request $routing) {
 
-        $routing = new PhpParser();
+        $routing = new PhpRouting();
 
-        $this->setRouting($routing);
+        $request = $this->setRouting($routing);
+
+    }
+
+    public function getRoute() {
+
+        if (!isset($_SERVER['PATH_INFO'])) {
+
+            $route=$_SERVER['REQUEST_URI'];
+
+        } else {
+
+            $route = $_SERVER['PATH_INFO'];
+
+        }
+
+        return $route;
 
     }
 
     public function setRouting(RouteParser $routing) {
 
-        if (!isset($_SERVER['PATH_INFO'])) {
-            $route=$_SERVER['REQUEST_URI'];
-        } else {
-            $route = $_SERVER['PATH_INFO'];
-        }
-
-
-        $routes = array(
-            'Home'=> array(
-                'route'=>'/',
-                'method'=>'get'
-            ),
-
-            'Welcome' => array(
-                'route'=>'/welcome',
-                'method'=>'get'
-            ),
-        );
+        $route = $this->getRoute();
 
         if (!$route) {
             $route='/';
         }
 
         $route_name = $routing->parseRoute($route, $routes);
-
-        $controllers = array(
-            'Home' => array(
-                'controller'=>'App\Controller\Home'
-            ),
-            'Welcome'=>array(
-                'controller'=>'App\Controller\Welcome'
-            )
-        );
-
 
         $get_controller = new HttpDispatcher;
 
@@ -82,7 +70,6 @@ final class Application {
         $response = $controller_i($httprequest, $this->database);
 
         $this->setView($response);
-
 
     }
 
