@@ -1,6 +1,6 @@
 <?php
 
-namespace Fw\Component\Databases;
+namespace Fw\Component\Databases\MysqlPDO;
 
 use Fw\Component\Databases\Database;
 use Fw\Component\Databases\Mysql;
@@ -15,7 +15,5 @@ class MysqlPDO implements Database, Mysql {
         $this->mysqlpdo = $pdo;
 
     }
-
-
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fw\Component\Databases;
+namespace Fw\Component\Databases\MysqlPDO;
 
-use Fw\Component\Databases\MysqlPDO;
+use \PDOException;
 use \PDO;
 
 class MysqlPDOConnection {
@@ -11,6 +11,7 @@ class MysqlPDOConnection {
     private $user;
     private $password;
     private $options;
+    private $pdo;
 
 
     public function __construct($database) {
@@ -22,7 +23,8 @@ class MysqlPDOConnection {
 
         try {
 
-            $pdo = new PDO($this->dsn, $this->user, $this->password);
+            $this->pdo = new PDO($this->dsn, $this->user, $this->password);
+
 
         } catch (PDOException $e) {
 
@@ -30,7 +32,7 @@ class MysqlPDOConnection {
 
         }
 
-        return $pdo;
+        return $this->pdo;
 
     }
 
