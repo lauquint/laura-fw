@@ -9,6 +9,7 @@ use \Twig_Environment;
 class TwigView implements WebView, View {
 
     public $twig_view;
+
     public function __construct(Twig_Environment $twig) {
        $this->twig_view = $twig;
 

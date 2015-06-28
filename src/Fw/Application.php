@@ -11,6 +11,7 @@ use Fw\Component\Dispatching\JsonResponse;
 use Fw\Component\Dispatching\WebResponse;
 use Fw\Component\Views\JsonView;
 use Fw\Component\Views\TwigView;
+use Fw\Component\Views\WebView;
 use \Twig_Environment;
 
 final class Application {
@@ -98,13 +99,19 @@ final class Application {
 
     }
 
-    public function setTemplateEngine($templateEngine) {
+    public function setTemplateEngine(WebView $templateEngine) {
 
         if ($templateEngine instanceof Twig_Environment) {
 
             $this->template_engine = $templateEngine;
 
         }
+
+    }
+
+    public function setDatabase() {
+
+        $pdo = new PDO($dsn, $username, $password, $options);
 
     }
 }
