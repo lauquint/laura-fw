@@ -12,7 +12,7 @@ class MysqlPDOConnection extends PDO implements Database {
     protected $user;
     protected $password;
     protected $options;
-    protected $pdo;
+    public $pdo;
 
 
     public function __construct($database) {
@@ -38,11 +38,6 @@ class MysqlPDOConnection extends PDO implements Database {
 
         }
 
-
-
-
-
     }
-
 
 }
