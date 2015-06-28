@@ -14,8 +14,7 @@ use Fw\Component\Views\TwigView;
 use \Twig_Environment;
 use Fw\Component\Databases\Database;
 
-include __DIR__ . '/../src/config/controllers.php';
-include __DIR__ . '/../src/config/routes.php';
+
 
 final class Application {
 
@@ -49,9 +48,10 @@ final class Application {
 
     public function setRouting(RouteParser $routing) {
 
+
+        include __DIR__ . '/../../../../../src/config/routes.php';
+
         $route = $this->getRoute();
-
-
 
         if (!$route) {
             $route='/';
@@ -61,6 +61,7 @@ final class Application {
 
 
         $get_controller = new HttpDispatcher;
+        include __DIR__ . '/../../../../../src/config/controllers.php';
 
         $controller = $get_controller->dispatchController($route_name, $controllers);
 
@@ -109,7 +110,5 @@ final class Application {
 
         $this->database = $database;
     }
-
-
 
 }
