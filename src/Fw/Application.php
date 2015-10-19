@@ -101,10 +101,13 @@ final class Application {
 
             $value = $this->setView($response);
             $cache->set( $key, $value, 0, $expiration_in_seconds);
+            echo $value;
+        } else  {
 
+            echo $value;
         }
 
-        //echo $value;
+
 
     }
 
