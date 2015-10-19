@@ -6,8 +6,9 @@ namespace Fw;
 use Fw\Component\Routing\YmlRouting;
 use Fw\Component\Routing\RouteParser;
 use Fw\Component\Dispatching\HttpDispatcher;
-use Fw\Component\Dispatching\HttpRequest;
-use Fw\Component\Dispatching\Request;
+use Fw\Component\Dispatching\Request\HttpRequest;
+use Fw\Component\Dispatching\Request\ArrayAccessRequest;
+use Fw\Component\Dispatching\Request\Request;
 use Fw\Component\Dispatching\JsonResponse;
 use Fw\Component\Dispatching\WebResponse;
 use Fw\Component\Views\JsonView;
@@ -15,12 +16,14 @@ use Fw\Component\Views\TwigView;
 use \Twig_Environment;
 use Fw\Component\Databases\Database;
 use Symfony\Component\Yaml\Parser;
+use Fw\Component\Search\Search;
 
 
 final class Application {
 
     public $template_engine;
     public $database;
+    public $search_component;
 
 
     public function run() {
@@ -50,7 +53,6 @@ final class Application {
     public function setRouting(RouteParser $routing) {
 
 
-        //include __DIR__ . '/../../../../../src/config/routes.php';
         $yaml = new Parser();
         $routes = $yaml->parse(file_get_contents(__DIR__ .'/../../../../../src/config/routes.yml'));
 
@@ -63,24 +65,55 @@ final class Application {
         $route_name = $routing->parseRoute($route, $routes);
 
 
-        $get_controller = new HttpDispatcher;
-        //include __DIR__ . '/../../../../../src/config/controllers.php';
         $yaml = new Parser();
+
         $controllers = $yaml->parse(file_get_contents(__DIR__ .'/../../../../../src/config/controllers.yml'));
 
-        $controller = $get_controller->dispatchController($route_name, $controllers);
+
+        $httpDispatcher = new HttpDispatcher;
+
+
+
+        $controller = $httpDispatcher->dispatchController($route_name, $controllers);
 
         $controller_i = new $controller;
 
-        $request = new Request();
+        $arrayAccessRequest = new ArrayAccessRequest();
 
-        $httprequest = new HttpRequest($request, $_GET, $_POST, $_SERVER);
+        $httprequest = new HttpRequest($arrayAccessRequest, $httpDispatcher);
 
-        $response = $controller_i($httprequest, $this->database);
 
-        $this->setView($response);
+        //$request = new Request();
+
+
+
+        $cache = new \Memcache();
+        $cache->addServer( 'localhost', 11211 );
+
+        //$key = __CLASS__ ;
+        $key = 'cool-key';
+        $expiration_in_seconds = 5;
+
+        $value = $cache->get( $key );
+
+        if ( false === $value ) {
+
+            $response = $controller_i($httprequest, $this->database, $this->search_component);
+
+            $value = $this->setView($response);
+            $cache->set( $key, $value, 0, $expiration_in_seconds);
+
+        }
+
+        echo $value;
 
     }
+
+    private function  saveInCache($value)
+    {
+
+    }
+
 
     public function setView($response) {
 
@@ -95,7 +128,7 @@ final class Application {
 
             $web_view = new TwigView($this->template_engine);
 
-            $web_view->render($response->getResponse());
+            return $web_view->render($response->getResponse());
 
         }
 
@@ -114,6 +147,11 @@ final class Application {
     public function setDatabase(Database $database) {
 
         $this->database = $database;
+    }
+
+    public function setSearchComponent(Search $search_component)
+    {
+        $this->search_component = $search_component;
     }
 
 }

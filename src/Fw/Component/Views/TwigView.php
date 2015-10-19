@@ -17,7 +17,7 @@ class TwigView implements WebView, View {
 
     public function render($data=array()) {
 
-        echo $this->twig_view->render($data['template'], $data['parameters']);
+        return $this->twig_view->render($data['template'], $data['parameters']);
 
     }
 

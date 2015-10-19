@@ -17,7 +17,7 @@ class MysqlPDOConnection extends PDO implements Database {
 
     public function __construct($database) {
 
-        $this->dsn = $database['driver'].':host='.$database['host'].';dbname='.$database['database'];
+        $this->dsn = $database['driver'].':host='.$database['host'].';dbname='.$database['database'].';charset='.$database['charset'];
         $this->user = $database['username'];
         $this->password = $database['password'];
 

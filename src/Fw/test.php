@@ -6,7 +6,6 @@ require '../../vendor/autoload.php';
 use Fw\Application;
 use Fw\Component\Routing\PhpParser;
 use Fw\Component\Dispatching\HttpDispatcher;
-use Fw\Component\Dispatching\HttpRequest;
 
 $application= new Application;
 $routing = new PhpParser();
