@@ -95,8 +95,8 @@ final class Application {
         $key = 'cool-key';
         $expiration_in_seconds = 5;
 
-        $value = $cache->get( $key );
-
+        //$value = $cache->get( $key );
+        $value = false;
         if ( false === $value ) {
 
             $response = $controller_i($httprequest, $this->database, $this->search_component);
