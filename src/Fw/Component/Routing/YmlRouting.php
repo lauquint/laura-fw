@@ -12,7 +12,8 @@ class YmlRouting implements RouteParser {
 
 
         foreach ($routes as $key => $value){
-var_dump($routes);
+var_dump($value['route']);
+            var_dump($route);
             if($value['route'] == $route) {
 
                 $isAllowedMethod = $this->checkAllowedMethods($value['method'], $method);
