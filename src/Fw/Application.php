@@ -86,17 +86,15 @@ final class Application {
 
         //$request = new Request();
 
-
-
-        $cache = new \Memcache();
+        $cache = new \Memcached();
         $cache->addServer( 'localhost', 11211 );
 
         //$key = __CLASS__ ;
-        $key = 'cool-key';
+        $key = hash('ripemd160', $controller);
         $expiration_in_seconds = 5;
 
-        //$value = $cache->get( $key );
-        $value = false;
+        $value = $cache->get( $key );
+
         if ( false === $value ) {
 
             $response = $controller_i($httprequest, $this->database, $this->search_component);
@@ -106,7 +104,7 @@ final class Application {
 
         }
 
-        echo $value;
+        //echo $value;
 
     }
 
