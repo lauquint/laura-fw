@@ -45,8 +45,9 @@ final class Application {
             $route = $_SERVER['PATH_INFO'];
 
         }
-
+        var_dump($route);
         return $route;
+
 
     }
 
@@ -59,7 +60,7 @@ final class Application {
         $route = $this->getRoute();
 
         if (!$route) {
-            //$route='/';
+            $route='/';
         }
 
         $route_name = $routing->parseRoute($route, $routes);
