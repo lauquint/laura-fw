@@ -59,7 +59,7 @@ final class Application {
         $route = $this->getRoute();
 
         if (!$route) {
-            $route='/';
+            //$route='/';
         }
 
         $route_name = $routing->parseRoute($route, $routes);
