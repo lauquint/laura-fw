@@ -87,7 +87,7 @@ final class Application {
 
 
 
-        $cache = new \Memcache();
+        $cache = new \Memcached();
         $cache->addServer( 'localhost', 11211 );
 
         //$key = __CLASS__ ;
