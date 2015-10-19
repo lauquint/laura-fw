@@ -24,7 +24,6 @@ class YmlRouting implements RouteParser {
                 $routetocompare = preg_replace('(\{(.*?)\})', '(\w+)', $value['route']);
                 $routetocompare = str_replace("/", "\\/", $routetocompare);
                 if (preg_match_all("/^" . $routetocompare . "$/", $route, $matches) > 0) {
-                    //var_dump($matches);
                     $values = array_splice($matches, 1);
                     foreach ($values as $v) {
                         $tmpval[] = $v[0];
