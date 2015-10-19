@@ -45,7 +45,6 @@ final class Application {
             $route = $_SERVER['PATH_INFO'];
 
         }
-        var_dump($route);
         return $route;
 
 
