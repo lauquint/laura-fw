@@ -16,7 +16,6 @@ class HttpDispatcher {
         foreach($controllers as $route => $controller) {
 
             if ($route_name==$route) {
-                echo 'here';
                 return $controller['controller'];
 
             } else{
