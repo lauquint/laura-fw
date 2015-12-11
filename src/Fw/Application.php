@@ -82,14 +82,22 @@ final class Application {
 
         $httprequest = new HttpRequest($arrayAccessRequest, $httpDispatcher);
 
-
-        //$request = new Request();
-
         $cache = new \Memcached();
         $cache->addServer( 'localhost', 11211 );
 
-        //$key = __CLASS__ ;
-        $key = hash('ripemd160', $controller);
+        $differencial_key ='';
+
+        if ($httprequest['variables'])
+        {
+            if (is_array($httprequest['variables']))
+            {
+                $differencial_key = serialize($httprequest['variables']);
+            } else {
+                $differencial_key = $httprequest['variables'];
+            }
+        }
+
+        $key = hash('ripemd160', $controller.$differencial_key);
         $expiration_in_seconds = 5;
 
         $value = $cache->get( $key );
