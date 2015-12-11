@@ -15,11 +15,16 @@ final class Sphinx implements Search
     }
 
     public function SetLimits($page, $max_elements) {
-        $this->sphinx->SetLimits($page, $max_elements);
+        return $this->sphinx->SetLimits($page, $max_elements);
+    }
+
+    public function SetSortMode($mode, $sortby = '')
+    {
+        return $this->sphinx->SetSortMode($mode, $sortby);
     }
 
     public  function AddQuery($query, $index) {
-        $this->sphinx->AddQuery( $query, $index);
+        return $this->sphinx->AddQuery( $query, $index);
     }
 
     public function RunQueries() {
@@ -27,10 +32,14 @@ final class Sphinx implements Search
     }
 
     public function getLastError() {
-        $this->sphinx->getLastError();
+        return $this->sphinx->getLastError();
     }
     public function getLastWarning() {
-        $this->sphinx->getLastWarning();
+        return $this->sphinx->getLastWarning();
     }
 
+    public function setFilter($attribute, array $values, $exclude = false)
+    {
+        return $this->sphinx->setFilter($attribute, $values, $exclude);
+    }
 }
