@@ -23,8 +23,8 @@ final class Sphinx implements Search
         return $this->sphinx->SetSortMode($mode, $sortby);
     }
 
-    public  function query($query, $index = '*', $comment = '') {
-        return $this->sphinx->query( $query, $index, $comment);
+    public  function AddQuery($query, $index) {
+        return $this->sphinx->AddQuery( $query, $index);
     }
 
     public function RunQueries() {
