@@ -99,7 +99,7 @@ final class Application {
         }
 
         $key = hash('ripemd160', $controller.$differencial_key);
-        $expiration_in_seconds = 5;
+        $expiration_in_seconds = 30;
 
         $value = $cache->get( $key );
 
