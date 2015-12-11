@@ -107,7 +107,7 @@ final class Application {
             $response = $controller_i($httprequest, $this->database, $this->search_component);
 
             $value = $this->setView($response);
-            $cache->set( $key, $value, 0, $expiration_in_seconds);
+            $cache->set( $key, $value, $expiration_in_seconds);
             echo $value;
         } else  {
 
