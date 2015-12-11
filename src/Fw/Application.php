@@ -3,6 +3,7 @@
 namespace Fw;
 
 //use Fw\Component\Routing\PhpRouting;
+use Fw\Component\Cache\MemCached;
 use Fw\Component\Routing\YmlRouting;
 use Fw\Component\Routing\RouteParser;
 use Fw\Component\Dispatching\HttpDispatcher;
@@ -82,7 +83,7 @@ final class Application {
 
         $httprequest = new HttpRequest($arrayAccessRequest, $httpDispatcher);
 
-        $cache = new \Memcached();
+        $cache = new MemCached(new \Memcached());
         $cache->addServer( 'localhost', 11211 );
 
         $differencial_key ='';
